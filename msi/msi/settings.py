@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'rest_framework',
     'django_celery_beat',
-    'django_celery_results'
+    'django_celery_results',
+    'corsheaders'
 ]
 
 CELERY_RESULT_BACKEND = "django-db"
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +57,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:3000',
+)
+
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     )

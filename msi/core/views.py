@@ -17,7 +17,8 @@ import json
 
 class DispositorViewSet(viewsets.ModelViewSet):
     queryset = Dispositor.objects.all()
-    authentication_classes = []
+    authentication_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = DispositorSerializer
 
 
