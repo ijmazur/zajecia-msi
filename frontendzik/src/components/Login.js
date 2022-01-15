@@ -13,7 +13,7 @@ export const Login = () => {
                 console.log('logged in');
             },
             (error) => {
-                console.log(error);
+                console.log('error');
             }
         );
     };
