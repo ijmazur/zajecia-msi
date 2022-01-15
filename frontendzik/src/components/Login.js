@@ -19,17 +19,17 @@ export const Login = () => {
     };
 
     return (
-        <div>
+        <div className='center'>
             <form onSubmit={sumbitLogin}>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="text" className="form-control" id="username" placeholder="Enter email"/>
+                <div className='form-group'>
+                    <label htmlFor='exampleInputEmail1'>Email address</label>
+                    <input type='text' className='form-control' id='username' placeholder='Enter email'/>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" id="password" placeholder="Password"/>
+                <div className='form-group'>
+                    <label htmlFor='exampleInputPassword1'>Password</label>
+                    <input type='password' className='form-control' id='password' placeholder='Password'/>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type='submit' className='btn btn-primary'>Submit</button>
             </form>
         </div>
     );

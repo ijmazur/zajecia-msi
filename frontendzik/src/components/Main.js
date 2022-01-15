@@ -5,7 +5,7 @@ import dispositor from './../img/dispositor.png'
 
 export const Main = () => {
     return (
-        <div className='main-div'>
+        <div className='center'>
             <div className='header-container'>
                 <h1>Welcome to App</h1>
                 <h2>Please login</h2>
