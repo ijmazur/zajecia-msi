@@ -1,8 +1,16 @@
 import './Login.css';
 import authService from '../services/auth.service';
 import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import Dispositor from './dispositors/Dispositor';
 
 export const Login = () => {
+    const navigate = useNavigate();
+
+    const goToLogin = (goToPage) => {
+        navigate('/', { state: { data: goToPage } });
+    } 
+
     const { state } = useLocation();
     const { data } = state; // Read values passed on state
 
@@ -12,8 +20,12 @@ export const Login = () => {
         const password = event.target[1].value;
 
         authService.login(username, password).then(
-            (data) => {
-                console.log('logged in');
+            () => {
+              if(data === 'dispositor'){
+                  navigate('/dispositor');
+              } else {
+                  navigate('/driver');
+              }
             },
             (error) => {
                 console.log('error');
