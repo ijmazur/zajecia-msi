@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse, response
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -51,3 +51,22 @@ class AmbulanceCallViewSet(viewsets.ModelViewSet):
     queryset = AmbulanceCall.objects.all()
     authentication_classes = []
     serializer_class = AmbulanceCallSerializer
+
+
+class UserInfoView(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    def get_user_data(self, request):
+        user_id = int(request.user.id)
+        if Dispositor.objects.filter(pk=user_id).exists():
+            user = Dispositor.objects.get(pk=user_id)
+            serializer = DispositorSerializer(user, many=False)
+            response = serializer.data
+            response['type'] = 'dispositor'
+            return Response(response)
+        elif Driver.objects.filter(pk=user_id).exists():
+            user = Driver.objects.get(pk=user_id)
+            serializer = DriverSerializer(user, many=False)
+            response = serializer.data
+            response['type'] = 'driver'
+            return Response(response)
