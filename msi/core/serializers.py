@@ -38,12 +38,6 @@ class DriverSerializer(serializers.ModelSerializer):
         }
 
 
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = '__all__'
-
-
 class SquadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Squad

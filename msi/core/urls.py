@@ -6,7 +6,6 @@ from core import views
 router = routers.DefaultRouter()
 router.register(r'dispositors', views.DispositorViewSet)
 router.register(r'drivers', views.DriverViewSet)
-router.register(r'locations', views.LocationViewSet)
 router.register(r'squads', views.SquadViewSet)
 router.register(r'ambulances', views.AmbulanceViewSet)
 router.register(r'ambulance-calls', views.AmbulanceCallViewSet)
