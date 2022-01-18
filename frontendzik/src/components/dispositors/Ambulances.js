@@ -35,9 +35,24 @@ export const Ambulances = () => {
 
     const onAmbulanceAdded = (ambulance) => {
         ambulanceService.addNewAmbulance(ambulance).then(
-            () => loadAmbulances(selectedStatus.id)
+            () => {
+                loadAmbulances(selectedStatus.id);
+                toggleShowAddAmbulanceForm();
+            }
         );
     }; 
+
+    const onAmbulanceDeleted = (ambulance) => {
+        ambulanceService.deleteAmbulance(ambulance.id).then(
+            () => loadAmbulances(selectedStatus.id)
+        );
+    };
+
+    const onAmbulanceEdited = (ambulance) => {
+        ambulanceService.updateAmbulance(ambulance).then(
+            () => loadAmbulances(selectedStatus.id)
+        );
+    };
 
     return (
         <div>
@@ -60,14 +75,14 @@ export const Ambulances = () => {
             </div>
             { showAddAmbulanceForm ? 
                 <div className="padding-8px">
-                    <AddAmbulanceForm onAmbulanceAdded={onAmbulanceAdded} />
+                    <AddAmbulanceForm onAmbulanceAdded={onAmbulanceAdded} isEditing={null} />
                 </div>
                 : null 
             }
             { ambulanceList.length !== 0 ? 
-                <div className="padding-8px">
+                <div className="list">
                     {ambulanceList.map((ambulance) => (
-                        <Ambulance key={ambulance.id} ambulance={ambulance}/>
+                        <Ambulance key={ambulance.id} ambulance={ambulance} onEdit={ (editedAmbulance) => onAmbulanceEdited(editedAmbulance) } onDelete={ () => onAmbulanceDeleted(ambulance) }/>
                     ))}
                 </div>
                 : 'No ambulances to display'

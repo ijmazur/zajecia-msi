@@ -45,7 +45,7 @@ class AmbulanceViewSet(viewsets.ModelViewSet):
     def list(self, request):
         option = request.query_params.get('option')
         if option == 'all':
-            objects = self.queryset
+            objects = Ambulance.objects.all()
         elif option == 'busy':
             objects = Ambulance.objects.filter(status=1)
         elif option == 'free':
