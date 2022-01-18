@@ -1,8 +1,8 @@
-# from django.test.testcases import TestCase
-# from django.urls import reverse, path, include
-# from rest_framework.test import APITestCase
-# from .models import Doctor, Specialization
-# import json
+from django.test.testcases import TestCase
+from django.urls import reverse, path, include
+from rest_framework.test import APITestCase
+from .models import *
+import json
 
 # Create your tests here.
 
