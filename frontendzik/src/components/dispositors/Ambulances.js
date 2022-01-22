@@ -75,7 +75,7 @@ export const Ambulances = () => {
             </div>
             { showAddAmbulanceForm ? 
                 <div className="padding-8px">
-                    <AddAmbulanceForm onAmbulanceAdded={onAmbulanceAdded} isEditing={null} />
+                    <AddAmbulanceForm onAmbulanceAdded={onAmbulanceAdded} isEditing={null} onCancel={toggleShowAddAmbulanceForm}/>
                 </div>
                 : null 
             }

@@ -2,31 +2,31 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import ambulanceService from '../../services/ambulance.service';
 import squadService from '../../services/squad.service';
-import Ambulances from './Ambulances';
 
 
-const AddAmbulanceCallForm = ({ onAmbulanceCallAdded, isEditing }) => {
+const AddAmbulanceCallForm = ({ onAmbulanceCallAdded, isEditing, onCancel }) => {
     const [id, setId] = useState('');
-    const [description, setCode] = useState('');
-    const [status, setPriority] = useState('');
+    const [description, setDescription] = useState('');
+    const [priority, setPriority] = useState('');
     const [street, setStreet] = useState('');
     const [number, setNumber] = useState('');
     const [city, setCity] = useState('');
     const [ambulanceList, setAmbulanceList] = useState([]);
-    const [selectedAmbulances, setSelectedAmbulances] = useState(null);
+    const [selectedAmbulance, setSelectedAmbulance] = useState();
     const [squadList, setSquadList] = useState([]);
-    const [selectedSquad, setSelectedSquad] = useState(null);
+    const [selectedSquad, setSelectedSquad] = useState();
 
 
     useEffect(() => {
         if (isEditing != null) {
             setId(isEditing.id);
-            setCode(isEditing.code);
-            setPriority(isEditing.status);
+            setDescription(isEditing.description);
+            setPriority(isEditing.priority);
             setStreet(isEditing.street);
             setNumber(isEditing.number);
             setCity(isEditing.city);
-            setSelectedAmbulances();
+            setSelectedAmbulance(isEditing.assigned_ambulance);
+            setSelectedSquad(isEditing.assigned_squad);
         }
         ambulanceService.getAmbulances('free')
         .then((ambulances) => {
@@ -43,7 +43,12 @@ const AddAmbulanceCallForm = ({ onAmbulanceCallAdded, isEditing }) => {
         const ambulanceCall = {
             'id': id,
             'description': event.target[0].value,
-            'status': event.target[1].value,
+            'priority': event.target[1].value,
+            'assigned_ambulance': selectedAmbulance ? selectedAmbulance.id : null,
+            'assigned_squad': selectedSquad ? selectedSquad.id : null,
+            'street': event.target[4].value,
+            'number': event.target[5].value,
+            'city': event.target[6].value
         };
         onAmbulanceCallAdded(ambulanceCall);
     };
@@ -53,21 +58,21 @@ const AddAmbulanceCallForm = ({ onAmbulanceCallAdded, isEditing }) => {
             <form onSubmit={submitAmbulanceCall}>
                 <div className='form-group'>
                     <label htmlFor='assign-code'>Description: </label>
-                    <input type='text-field' className='form-control' id='assign-code' placeholder='Enter Code' value={description} onChange={(e) => setCode(e.target.value)} required />
+                    <input type='text-field' className='form-control' id='assign-code' placeholder='Enter description' value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </div>
                 <div className='form-group'>
                     <label htmlFor='assign-squad'>Priority: </label>
-                    <input type='number' className='form-control' id='assign-squad' placeholder='Priority' value={status} onChange={(e) => setPriority(e.target.value[1])} required />
+                    <input type='number' className='form-control' id='assign-squad' placeholder='Priority' value={priority} onChange={(e) => setPriority(e.target.value[1])} required />
                 </div>
                 <div className="form-group">
                     <div className="dropdown"  >
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" style={{ width: '100%'}} data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Ambulance: {selectedAmbulances ? selectedAmbulances.vehicle_name : ''}
+                            Select Ambulance: {selectedAmbulance ? selectedAmbulance.vehicle_name : ''}
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ width: '100%'}}>
                             {ambulanceList.map((ambulance) => (
                                 <li key={ambulance.id}>
-                                    <div className='dropdown-item' style={{ backgroundColor: selectedAmbulances && selectedAmbulances.id === ambulance.id ? 'grey' : null }} onClick={() => setSelectedAmbulances(ambulance)}>
+                                    <div className='dropdown-item' style={{ backgroundColor: selectedAmbulance && selectedAmbulance.id === ambulance.id ? 'grey' : null }} onClick={() => setSelectedAmbulance(ambulance)}>
                                         {ambulance.vehicle_name}
                                     </div>
                                 </li>
@@ -111,6 +116,15 @@ const AddAmbulanceCallForm = ({ onAmbulanceCallAdded, isEditing }) => {
                         <label htmlFor='location-city'>City</label>
                         <input type='text' className='form-control' id='location-city' placeholder='Enter city' value={city} onChange={(e) => setCity(e.target.value)} required />
                     </div>
+                </div>
+                <div>
+                    {isEditing ?
+                        <div style={{display: 'flex', width: '100%', columnGap: '8px'}}>
+                            <button type='submit' style={{width: '100%'}} className='btn btn-primary'>Save</button>
+                            <button type='button' style={{width: '100%'}} className='btn btn-primary' onClick={onCancel}>Cancel</button>
+                        </div>
+                        : <button type='submit' style={{width: '100%'}} className='btn btn-primary'>Add</button>
+                    }
                 </div>
             </form>
         </div>

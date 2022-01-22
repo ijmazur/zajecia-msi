@@ -1,14 +1,14 @@
 import './Ambulances.css';
 import { useState, useEffect } from 'react';
 import AddAmbulanceCallForm from './AddAmbulanceCallForm.js';
-import AmbulanceCalls from './AmbulanceCalls';
+import AmbulanceCall from './AmbulanceCall.js';
 import ambulanceCallService from '../../services/ambulanceCall.service';
 
 export const Calls = () => {
 
     const options = [
-        {id: 'all', name: 'All calls'},
-        {id: 'busy', name: 'Call currently being handled'},
+        { id: 'all', name: 'All calls' },
+        { id: 'busy', name: 'Call currently being handled' },
     ];
     const onOptionChange = (option) => {
         setSelectedStatus(option);
@@ -24,8 +24,8 @@ export const Calls = () => {
     const loadAmbulanceCall = (option) => {
         ambulanceCallService.getAmbulanceCall(option).then(
             (data) => {
-                // setAmbulanceCallList(data);
-                console.log('data', data);
+                data.sort((ac1, ac2) => ac2.priority - ac1.priority);
+                setAmbulanceCallList(data);
             }
         );
     };
@@ -35,9 +35,24 @@ export const Calls = () => {
 
     const onAmbulanceCallAdded = (ambulanceCall) => {
         ambulanceCallService.addNewAmbulanceCall(ambulanceCall).then(
+            () => {
+                loadAmbulanceCall(selectedStatus.id);
+                toggleShowAddAmbulanceCallForm();
+            }
+        );
+    };
+
+    const onAmbulanceCallDeleted = (ambulanceCall) => {
+        ambulanceCallService.deleteAmbulanceCall(ambulanceCall.id).then(
             () => loadAmbulanceCall(selectedStatus.id)
         );
-    }; 
+    };
+
+    const onAmbulanceCallEdited = (ambulanceCall) => {
+        ambulanceCallService.updateAmbulanceCall(ambulanceCall).then(
+            () => loadAmbulanceCall(selectedStatus.id)
+        );
+    };
 
     return (
         <div>
@@ -47,27 +62,27 @@ export const Calls = () => {
                         {selectedStatus.name}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        { options.map((option) => (
+                        {options.map((option) => (
                             <li key={option.id}>
                                 <div className='dropdown-item' onClick={() => onOptionChange(option)}>
                                     {option.name}
                                 </div>
                             </li>
-                        )) }
+                        ))}
                     </ul>
                 </div>
-                <button type='button' className={showAddAmbulanceCallForm ? 'btn btn-primary' : 'btn btn-secondary'} onClick={ toggleShowAddAmbulanceCallForm }>Add new call</button>
+                <button type='button' className={showAddAmbulanceCallForm ? 'btn btn-primary' : 'btn btn-secondary'} onClick={toggleShowAddAmbulanceCallForm}>Add new call</button>
             </div>
-            { showAddAmbulanceCallForm ? 
+            {showAddAmbulanceCallForm ?
                 <div className="padding-8px">
-                    <AddAmbulanceCallForm onAmbulanceCallAdded={onAmbulanceCallAdded} />
+                    <AddAmbulanceCallForm onAmbulanceCallAdded={onAmbulanceCallAdded} onCancel={toggleShowAddAmbulanceCallForm}/>
                 </div>
-                : null 
+                : null
             }
-            { ambulanceCallList.length !== 0 ? 
-                <div className="padding-8px">
-                    {ambulanceCallList.map((ambulance) => (
-                        <AmbulanceCalls key={ambulance.id} ambulance={ambulance}/>
+            {ambulanceCallList.length !== 0 ?
+                <div className="list">
+                    {ambulanceCallList.map((ambulanceCall) => (
+                        <AmbulanceCall key={ambulanceCall.id} ambulanceCall={ambulanceCall} onDelete={() => onAmbulanceCallDeleted(ambulanceCall)} onEdit={(editedAmbulanceCall) => onAmbulanceCallEdited(editedAmbulanceCall)} />
                     ))}
                 </div>
                 : 'No ambulances to display'

@@ -2,7 +2,6 @@ import './Driver.css';
 import { useEffect, useState } from 'react'
 import authService from '../../services/auth.service';
 import UserData from '../UserData';
-import AmbulanceCalls from '../dispositors/AmbulanceCalls';
 import Calls from '../dispositors/Calls';
 
 export const Driver = () => {

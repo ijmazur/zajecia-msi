@@ -59,6 +59,9 @@ class AmbulanceSerializer(serializers.ModelSerializer):
 
 
 class AmbulanceCallSerializer(serializers.ModelSerializer):
+    assigned_squad = SquadSerializer(many=False, read_only=True)
+    assigned_ambulance = AmbulanceSerializer(many=False, read_only=True)
+
     class Meta:
         model = AmbulanceCall
         fields = '__all__'

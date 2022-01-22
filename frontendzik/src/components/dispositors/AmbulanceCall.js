@@ -1,11 +1,16 @@
-import './Ambulance.css'
+import './AmbulanceCall.css'
 import { useState } from 'react';
-import AddAmbulanceForm from './AddAmbulanceForm';
+import AddAmbulanceCallForm from './AddAmbulanceCallForm.js'
 
-const Ambulance = ({ ambulance, onEdit, onDelete }) => {
+const AmbulanceCall = ({ ambulanceCall, onEdit, onDelete }) => {
     const [editVisible, setEditVisible] = useState(false);
     const toggleEditVisible = () => {
         setEditVisible(!editVisible);
+    }
+
+    const save = (editedAmbulanceCall) => {
+        toggleEditVisible();
+        onEdit(editedAmbulanceCall);
     }
 
     return (
@@ -14,26 +19,34 @@ const Ambulance = ({ ambulance, onEdit, onDelete }) => {
                 <div className="text">
                     <div className="field">
                         <span className="label">
-                            Vehicle:
+                            Description:
                         </span>
                         <span className="value">
-                            {ambulance.vehicle_name}
+                            {ambulanceCall.description}
                         </span>
                     </div>
                     <div className="field">
                         <span className="label">
-                            Registration no.
+                            Priority:
                         </span>
                         <span className="value">
-                            {ambulance.registration_number}
+                            {ambulanceCall.priority}
                         </span>
                     </div>
                     <div className="field">
                         <span className="label">
-                            Status:
+                            Assigned ambulance:
                         </span>
                         <span className="value">
-                            {ambulance.status === 0 ? 'Free' : 'Busy (on a call)'}
+                            {ambulanceCall.assigned_ambulance ? ambulanceCall.assigned_ambulance.vehicle_name : 'Ambulance not assigned'}
+                        </span>
+                    </div>
+                    <div className="field">
+                        <span className="label">
+                            Assigned squad:
+                        </span>
+                        <span className="value">
+                            {ambulanceCall.assigned_squad ? ambulanceCall.assigned_squad.name : 'Squad not assigned' }
                         </span>
                     </div>
                     <div className="field">
@@ -41,7 +54,7 @@ const Ambulance = ({ ambulance, onEdit, onDelete }) => {
                             Location:
                         </span>
                         <span className="value">
-                            { `${ambulance.street} ${ambulance.number}, ${ambulance.city}` }
+                        { `${ ambulanceCall.street } ${ ambulanceCall.number }, ${ ambulanceCall.city }` }
                         </span>
                     </div>
                 </div>
@@ -50,9 +63,9 @@ const Ambulance = ({ ambulance, onEdit, onDelete }) => {
                     <button type="button" className="btn btn-danger" onClick={onDelete}>Delete</button>
                 </div>
             </div>
-            { editVisible ? <AddAmbulanceForm onAmbulanceAdded={ (editedAmbulance) => onEdit(editedAmbulance) } isEditing={ambulance} onCancel={toggleEditVisible}/> : null}
+            { editVisible ? <AddAmbulanceCallForm onAmbulanceCallAdded={ (editedAmbulance) => save(editedAmbulance) } isEditing={ambulanceCall} onCancel={toggleEditVisible}/> : null}
         </div>
     )
 }
 
-export default Ambulance
+export default AmbulanceCall;

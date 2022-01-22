@@ -27,6 +27,22 @@ class AmbulanceCallService {
             response => response.data
         );
     }
+
+    updateAmbulanceCall(ambulanceCall) {
+        const config = JSON.parse(JSON.stringify(defaultConfig));
+        config.headers = {...config.headers, ...authHeader() };
+        return axios.put(`${API_AMBULANCECALL_URL}/${ambulanceCall.id}/`, ambulanceCall, config).then(
+            response => response.data
+        );
+    }
+
+    deleteAmbulanceCall(ambulanceCallId) {
+        const config = JSON.parse(JSON.stringify(defaultConfig));
+        config.headers = {...config.headers, ...authHeader() };
+        return axios.delete(`${API_AMBULANCECALL_URL}/${ambulanceCallId}`, config).then(
+            response => response.data
+        );
+    }
 }
 
 export default new AmbulanceCallService();

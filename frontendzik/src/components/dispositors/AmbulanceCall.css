@@ -1,0 +1,31 @@
+.ambulance {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.row {
+    padding: 8px;
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.text {
+    width: 100%;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.field > .label {
+    font-weight: bold;
+    margin-right: 8px;
+}

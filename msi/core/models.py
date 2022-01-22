@@ -17,9 +17,6 @@ class HospitalUser(AbstractBaseUser):
 class Dispositor(HospitalUser):
     pass
 
-class Driver(HospitalUser):
-    pass
-
 class Location(models.Model):
     street = models.CharField(max_length=30)
     number = models.IntegerField()
@@ -30,7 +27,9 @@ class Location(models.Model):
 
 class Squad(models.Model):
     name = models.CharField(max_length=30)
-    drivers = models.ForeignKey(Driver, on_delete=models.DO_NOTHING)
+
+class Driver(HospitalUser):
+    squad = models.ForeignKey(Squad, on_delete=models.DO_NOTHING, default=None, null=True)
 
 class Ambulance(Location):
     vehicle_name = models.CharField(max_length=30)

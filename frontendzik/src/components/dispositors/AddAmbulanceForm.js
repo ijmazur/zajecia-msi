@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-const AddAmbulanceForm = ({onAmbulanceAdded, isEditing}) => {
+const AddAmbulanceForm = ({onAmbulanceAdded, isEditing, onCancel}) => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [registrationNumber, setRegistrationNumber] = useState('');
@@ -66,13 +66,12 @@ const AddAmbulanceForm = ({onAmbulanceAdded, isEditing}) => {
                     </div>
                 </div>
                     {isEditing ?
-                        <div style={{display: 'flex', width: '100%'}}>
+                        <div style={{display: 'flex', width: '100%', columnGap: '8px'}}>
                             <button type='submit' style={{width: '100%'}} className='btn btn-primary'>Save</button>
-                            <button type='button' style={{width: '100%'}} className='btn btn-primary'>Cancel</button>
+                            <button type='button' style={{width: '100%'}} className='btn btn-primary' onClick={onCancel}>Cancel</button>
                         </div>
                         : <button type='submit' style={{width: '100%'}} className='btn btn-primary'>Add</button>
                     }
-                
             </form>
         </div>
     );
