@@ -8,6 +8,7 @@ import json
 
 class DoctorTests(APITestCase):
 
+    #First Test
     def test_create_doctor(self):
         self.assertEqual(True,True)
 
