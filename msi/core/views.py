@@ -1,7 +1,4 @@
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -9,10 +6,6 @@ from rest_framework import permissions
 from core.models import Dispositor, Driver, Location, Squad, Ambulance, AmbulanceCall
 from core.serializers import DispositorSerializer, DriverSerializer, SquadSerializer, \
     AmbulanceSerializer, AmbulanceCallSerializer
-from django.core.mail import send_mail
-from django.conf import settings
-from .tasks import task_send_email
-import json
 
 
 # Create your views here.

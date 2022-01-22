@@ -1,7 +1,5 @@
-from django.db.models import fields
 from rest_framework import serializers
 from core.models import Dispositor, Driver, Location, Squad, Ambulance, AmbulanceCall
-from .tasks import task_send_email
 
 
 class DispositorSerializer(serializers.ModelSerializer):
