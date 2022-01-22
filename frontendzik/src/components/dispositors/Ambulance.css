@@ -20,6 +20,13 @@
     grid-template-rows: 1fr 1fr;
 }
 
+.squad-text {
+    width: 100%;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;

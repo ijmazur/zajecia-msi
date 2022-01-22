@@ -34,6 +34,14 @@ class SquadService {
             response => response.data
         );
     }
+
+    deleteSquad(squad) {
+        const config = JSON.parse(JSON.stringify(defaultConfig));
+        config.headers = {...config.headers, ...authHeader() };
+        return axios.delete(`${API_SQUAD_URL}/${squad}`, config).then(
+            response => response.data
+        );
+    }
 }
 
 export default new SquadService();

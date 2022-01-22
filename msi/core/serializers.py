@@ -1,3 +1,4 @@
+from importlib.resources import read_binary
 from django.db.models import fields
 from rest_framework import serializers
 from core.models import Dispositor, Driver, Location, Squad, Ambulance, AmbulanceCall
@@ -39,6 +40,9 @@ class DriverSerializer(serializers.ModelSerializer):
 
 
 class SquadSerializer(serializers.ModelSerializer):
+    # this makes grzesiu very mad
+    # useless django
+    
     class Meta:
         model = Squad
         fields = '__all__'
