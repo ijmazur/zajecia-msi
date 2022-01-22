@@ -22,8 +22,10 @@ and the dispatcher.
 ## Build with
 Project is created with:
 * [Python](python.org)
-* [Redis](https://redis.io)
-* [Celery](https://docs.celeryproject.org/en/stable/)
+* [Redis](https://redis.io) 
+* [Celery](https://docs.celeryproject.org/en/stable/) 
 * [Docker](https://www.docker.com)
 * [JavaScipt](https://www.javascript.com)
 * [Bootstrap](https://getbootstrap.com)
+
+*[<img src="https://img.shields.io/badge/python-%233776AB.svg?&style=for-the-badge&logo=python&logoColor=white" />](python.org)
