@@ -1,13 +1,14 @@
 ![GIF](Logo/MSI.gif)
 
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/vroniu/zajecia-msi">
     <img src="Logo/Logo.png" alt="Logo" width="300" height="300">
   </a>
 </div>
 
 ## Team
 Our team consists of the following members:
+
 * [Grzegorz Wrona](https://github.com/vroniu)
 * [Marcin Borkowski](https://github.com/MarBor2000)
 * [Igor Mazur](https://github.com/ijmazur)
