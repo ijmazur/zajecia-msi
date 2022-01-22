@@ -1,5 +1,6 @@
+![GIF](Logo/MSI.gif)
+
 <div align="center">
-<h1 align="center">Medyczne Systemy Informacyjne 2021</h1>
   <a href="https://github.com/github_username/repo_name">
     <img src="Logo/Logo.png" alt="Logo" width="300" height="300">
   </a>
