@@ -11,6 +11,12 @@ Our team consists of the following members:
 * [Marcin Borkowski](https://github.com/MarBor2000)
 * [Igor Mazur](https://github.com/ijmazur)
 
+<div align="center">
+
+![GIF](Logo/gifekTaki4Fun.gif)
+
+</div>
+
 ## Project Description [still need to be updated]
 Our project is to develop
 an ambulance service system.
