@@ -21,11 +21,20 @@ and the dispatcher.
 
 ## Build with
 Project is created with:
-* [Python](python.org)
-* [Redis](https://redis.io) 
-* [Celery](https://docs.celeryproject.org/en/stable/) 
-* [Docker](https://www.docker.com)
-* [JavaScipt](https://www.javascript.com)
-* [Bootstrap](https://getbootstrap.com)
 
-*[<img src="https://img.shields.io/badge/python-%233776AB.svg?&style=for-the-badge&logo=python&logoColor=white" />](python.org)
+[<img src="https://img.shields.io/badge/python-%233776AB.svg?&style=for-the-badge&logo=python&logoColor=white" />](https://www.python.org)
+
+[<img src="https://img.shields.io/badge/bootstrap-%237952B3.svg?&style=for-the-badge&logo=bootstrap&logoColor=white" />](https://getbootstrap.com)
+
+[<img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=black" />](https://www.javascript.com)
+
+[<img src="https://img.shields.io/badge/redis-%23DC382D.svg?&style=for-the-badge&logo=redis&logoColor=white" />](https://redis.io) 
+
+[<img src="https://img.shields.io/badge/celery-%2337814A.svg?&style=for-the-badge&logo=celery&logoColor=white" />](https://docs.celeryproject.org/en/stable/)
+
+[<img src="https://img.shields.io/badge/docker-%232496ED.svg?&style=for-the-badge&logo=docker&logoColor=white" />](https://www.docker.com)
+
+
+
+
+
