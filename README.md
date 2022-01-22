@@ -9,9 +9,11 @@
 ## Team
 Our team consists of the following members:
 
-* [Grzegorz Wrona](https://github.com/vroniu)
-* [Marcin Borkowski](https://github.com/MarBor2000)
-* [Igor Mazur](https://github.com/ijmazur)
+<img src="Logo/Crow.jpg" alt="Crow" width="10" height="10">[Grzegorz Wrona](https://github.com/vroniu) 
+
+<img src="Logo/Olsza.png" alt="Crow" width="10" height="10">[Marcin Borkowski](https://github.com/MarBor2000)
+
+<img src="Logo/makaron.jfif" alt="Crow" width="10" height="10">[Igor Mazur](https://github.com/ijmazur)
 
 <div align="center">
 
