@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.contrib.auth.models import UserManager
+# from django.contrib.contenttypes.fields import GenericRelation
 
 # Create your models here.
 
@@ -24,12 +25,15 @@ class Location(models.Model):
 
     class Meta:
         abstract = True
+        
+
+class Driver(HospitalUser):
+    # squad = models.ForeignKey(Squad, on_delete=models.DO_NOTHING, default=None, null=True)
+    pass
 
 class Squad(models.Model):
     name = models.CharField(max_length=30)
-
-class Driver(HospitalUser):
-    squad = models.ForeignKey(Squad, on_delete=models.DO_NOTHING, default=None, null=True)
+    drivers = models.ManyToManyField(Driver)
 
 class Ambulance(Location):
     vehicle_name = models.CharField(max_length=30)

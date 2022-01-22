@@ -4,6 +4,7 @@ import authService from '../../services/auth.service';
 import UserData from '../UserData';
 import Ambulances from './Ambulances';
 import Calls from './Calls';
+import Squads from './Squads';
 
 export const Dispositor = () => {
     const [userData, setUserData] = useState();
@@ -36,7 +37,7 @@ export const Dispositor = () => {
             <div className='tab-content' id='myTabContent'>
                 <div className='tab-pane fade show active' id='ambulances' role='tabpanel' aria-labelledby='ambulances-tab'><Ambulances /></div>
                 <div className='tab-pane fade' id='calls' role='tabpanel' aria-labelledby='calls-tab'><Calls /></div>
-                <div className='tab-pane fade' id='squads' role='tabpanel' aria-labelledby='squads-tab'>Squads</div>
+                <div className='tab-pane fade' id='squads' role='tabpanel' aria-labelledby='squads-tab'><Squads /></div>
             </div>
         </div>
     );
