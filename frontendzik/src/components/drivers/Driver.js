@@ -2,7 +2,8 @@ import './Driver.css';
 import { useEffect, useState } from 'react'
 import authService from '../../services/auth.service';
 import UserData from '../UserData';
-import Calls from '../dispositors/Calls';
+import DriverSquad from './DriverSquad';
+import DriverCalls from './DriverCalls';
 
 export const Driver = () => {
     const [userData, setUserData] = useState();
@@ -31,10 +32,8 @@ export const Driver = () => {
             </ul>
             <div className='tab-content' id='myTabContent'>
                 {/* <div className='tab-pane fade show active' id='driver' role='tabpanel' aria-labelledby='drivers-tab'><Driver /></div> */}
-                <div className='tab-pane fade' id='calls' role='tabpanel' aria-labelledby='calls-tab'><Calls /></div>
-                <div className='tab-pane fade' id='squads' role='tabpanel' aria-labelledby='squads-tab'>
-                    My Squad: <br/> tu sie wypluje Squad Names
-                </div>
+                <div className='tab-pane fade' id='calls' role='tabpanel' aria-labelledby='calls-tab'><DriverCalls /></div>
+                <div className='tab-pane fade' id='squads' role='tabpanel' aria-labelledby='squads-tab'><DriverSquad /></div>
             </div>
         </div>
     );

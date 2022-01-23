@@ -61,6 +61,8 @@ class AmbulanceCallViewSet(viewsets.ModelViewSet):
             objects = AmbulanceCall.objects.all()
         elif option == 'busy':
             objects = AmbulanceCall.objects.exclude(assigned_squad=None)
+        elif option == 'my-calls':
+            objects = AmbulanceCall.objects.filter(assigned_squad=Driver.username)
         else:
             return Response('Invalid option parameter', status=status.HTTP_400_BAD_REQUEST)
         serializer = AmbulanceCallSerializer(objects, many=True)
