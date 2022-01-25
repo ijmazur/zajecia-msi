@@ -8,6 +8,9 @@ import json
 
 class Ambulance(APITestCase):
 
+    def setUp(self):
+        self.url='http://127.0.0.1:8000/'
+
     #"First Test"
     def test_test(self):
         self.assertEqual(True,True)
@@ -22,6 +25,9 @@ class Ambulance(APITestCase):
             "registration_number":"CROW2137",
             "status":0
         }
-        response = self.client.post('http://127.0.0.1:8000/ambulances/',data,format='json')
+        response = self.client.post(self.url+'ambulances/',data,format='json')
         self.assertEqual(response.status_code,201)
+        created_ambulance_response = self.client.get(self.url+'ambulances/?option=all', format='json')
+        self.assertEqual(created_ambulance_response.status_code,200)
+
 
