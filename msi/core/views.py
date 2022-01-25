@@ -25,9 +25,21 @@ class DriverViewSet(viewsets.ModelViewSet):
 
 class SquadViewSet(viewsets.ModelViewSet):
     queryset = Squad.objects.all()
-    authentication_classes = []
     serializer_class = SquadSerializer
 
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    def get_my_squads(self, request):
+        user_id = int(request.user.id)
+        objects = Squad.objects.all()
+        squads = []
+        for object in objects:
+            for driver in object.drivers.all():
+                if driver.id == user_id:
+                    squads.append(object)
+        serializer = SquadSerializer(squads, many=True)
+        return Response(serializer.data)
 
 class AmbulanceViewSet(viewsets.ModelViewSet):
     queryset = Ambulance.objects.all()

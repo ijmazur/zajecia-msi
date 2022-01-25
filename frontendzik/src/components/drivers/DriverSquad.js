@@ -8,7 +8,7 @@ const DriverSquad = () => {
     const loadSquads = () => {
         driverService.getDriverList()
         .then((drivers) => {
-            squadService.getSquadList()
+            squadService.getMySquads()
             .then((data) => {
                     data.forEach((squad) => {
                         squad.drivers = squad.drivers.map((driverId) => drivers.find((d) => d.id === driverId))                        
