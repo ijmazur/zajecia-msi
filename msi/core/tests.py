@@ -106,3 +106,28 @@ class HospitalUser(APITestCase):
         created_driver_response = self.client.get(self.url+'drivers/', format='json')
         self.assertEqual(created_driver_response.status_code,200)
 
+    #shouldnt create driver with bad option
+    def test_driver_bad_option(self):
+        data = {
+            "first_name":10,
+            "last_name": "Borkowski",
+            "date_of_birth":"2000-08-31",
+            "username": "SiemaEniu12",
+            "password": "SiemaEniu13",
+            "mail": "siemaeniu@gmail.com"
+        }
+        response = self.client.post(self.url+'drivers/',data,format='json')
+        self.assertEqual(response.status_code,400)
+
+    #shouldnt create driver with blank
+    def test_driver_blank(self):
+        data = {
+            "last_name": "Borkowski",
+            "date_of_birth":"2000-08-31",
+            "username": "SiemaEniu12",
+            "password": "SiemaEniu13",
+            "mail": "siemaeniu@gmail.com"
+        }
+        response = self.client.post(self.url+'drivers/',data,format='json')
+        self.assertEqual(response.status_code,400)
+
