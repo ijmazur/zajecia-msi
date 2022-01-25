@@ -51,18 +51,25 @@ class AmbulanceViewSet(viewsets.ModelViewSet):
 
 class AmbulanceCallViewSet(viewsets.ModelViewSet):
     queryset = AmbulanceCall.objects.all()
-    authentication_classes = []
     serializer_class = AmbulanceCallSerializer
 
-
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     def list(self, request):
         option = request.query_params.get('option')
+        user_id = int(request.user.id)
         if option == 'all':
             objects = AmbulanceCall.objects.all()
         elif option == 'busy':
             objects = AmbulanceCall.objects.exclude(assigned_squad=None)
         elif option == 'my-calls':
-            objects = AmbulanceCall.objects.filter(assigned_squad=Driver.username)
+            calls = AmbulanceCall.objects.all()
+            objects = []
+            for call in calls:
+                if call.assigned_squad is not None:
+                    for driver in call.assigned_squad.drivers.all():
+                        if driver.id == user_id:
+                            objects.append(call)
         else:
             return Response('Invalid option parameter', status=status.HTTP_400_BAD_REQUEST)
         serializer = AmbulanceCallSerializer(objects, many=True)
