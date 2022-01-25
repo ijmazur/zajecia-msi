@@ -14,5 +14,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/user', views.UserInfoView.as_view({'get': 'get_user_data'}))
+    path('api/token/user', views.UserInfoView.as_view({'get': 'get_user_data'})),
+    path('squads/my-squads', views.SquadViewSet.as_view({'get': 'get_my_squads'}))
 ]
