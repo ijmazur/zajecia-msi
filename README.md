@@ -21,7 +21,7 @@ Our team consists of the following members:
 
 </div>
 
-## Project Description [still need to be updated]
+## Project Description 
 Our project is to develop
 an ambulance service system.
 It mainly consists of

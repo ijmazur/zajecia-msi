@@ -30,6 +30,37 @@ class Ambulance(APITestCase):
         created_ambulance_response = self.client.get(self.url+'ambulances/?option=all', format='json')
         self.assertEqual(created_ambulance_response.status_code,200)
 
+
+    #Test busy option in viewset
+    def test_ambulance_view_set_busy(self):
+        data = {
+            "street": "Leszka",
+            "number": 2,
+            "city": "Lublin",
+            "vehicle_name":"BMW",
+            "registration_number":"CROW2137",
+            "status":0
+        }
+        response = self.client.post(self.url+'ambulances/',data,format='json')
+        self.assertEqual(response.status_code,201)
+        created_ambulance_response = self.client.get(self.url+'ambulances/?option=busy', format='json')
+        self.assertEqual(created_ambulance_response.status_code,200)
+
+    #Test bad option in viewset
+    def test_ambulance_view_set_bad_option(self):
+        data = {
+            "street": "Leszka",
+            "number": 2,
+            "city": "Lublin",
+            "vehicle_name":"BMW",
+            "registration_number":"CROW2137",
+            "status":0
+        }
+        response = self.client.post(self.url+'ambulances/',data,format='json')
+        self.assertEqual(response.status_code,201)
+        created_ambulance_response = self.client.get(self.url+'ambulances/?option=UMCS', format='json')
+        self.assertEqual(created_ambulance_response.status_code,400)
+
     #shouldnt create ambulance with bad options
     def test_AmbulanceNO(self):
         data = {
@@ -54,3 +85,4 @@ class Ambulance(APITestCase):
         }
         response = self.client.post(self.url + 'ambulances/', data, format='json')
         self.assertEqual(response.status_code, 400)
+
