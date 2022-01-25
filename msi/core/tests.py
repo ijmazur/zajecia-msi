@@ -43,4 +43,14 @@ class Ambulance(APITestCase):
         response = self.client.post(self.url + 'ambulances/', data, format='json')
         self.assertEqual(response.status_code, 400)
 
-
+    #shouldnt create ambulance with blank
+    def test_AmbulanceBlank(self):
+        data = {
+            "number": 2,
+            "city": "Lublin",
+            "vehicle_name": "BMW",
+            "registration_number": "CROW2137",
+            "status": 0
+        }
+        response = self.client.post(self.url + 'ambulances/', data, format='json')
+        self.assertEqual(response.status_code, 400)
