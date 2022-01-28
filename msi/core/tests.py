@@ -30,7 +30,6 @@ class Ambulance(APITestCase):
         created_ambulance_response = self.client.get(self.url+'ambulances/?option=all', format='json')
         self.assertEqual(created_ambulance_response.status_code,200)
 
-
     #Test busy option in viewset
     def test_ambulance_view_set_busy(self):
         data = {
