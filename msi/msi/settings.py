@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_beat',
     'django_celery_results',
-    'corsheaders'
+    'corsheaders',
+    'drf_yasg',
 ]
 
 CELERY_RESULT_BACKEND = "django-db"

@@ -60,6 +60,7 @@ class Ambulance(APITestCase):
         created_ambulance_response = self.client.get(self.url+'ambulances/?option=UMCS', format='json')
         self.assertEqual(created_ambulance_response.status_code,400)
 
+
     #shouldnt create ambulance with blank
     def test_AmbulanceBlank(self):
         data = {
@@ -194,4 +195,23 @@ class HospitalUser(APITestCase):
         }
         response = self.client.post(self.url+'drivers/',data,format='json')
         self.assertEqual(response.status_code,400)
+
+
+    #create driver
+    def test_login_as_driver(self):
+        data = {
+            "first_name": "Marcin",
+            "last_name": "Borkowski",
+            "date_of_birth":"2000-08-31",
+            "username": "SiemaEniu12",
+            "password": "SiemaEniu13",
+            "mail": "siemaeniu@gmail.com"
+        }
+        response = self.client.post(self.url+'drivers/',data,format='json')
+        self.assertEqual(response.status_code,201)
+        data =json.loads(response.content)
+        self.assertIsNotNone(data['access'])
+        self.assertIsNotNone(data['refresh'])
+
+
 
