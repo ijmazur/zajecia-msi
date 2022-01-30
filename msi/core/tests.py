@@ -30,6 +30,34 @@ class Ambulance(APITestCase):
         created_ambulance_response = self.client.get(self.url+'ambulances/?option=all', format='json')
         self.assertEqual(created_ambulance_response.status_code,200)
 
+    #create test with missing options
+    def test_Ambulance_miss(self):
+        data = {
+            "street": "Leszka",
+            "number": 2,
+            "city": "Lublin",
+            "vehicle_name":"BMW",
+            "registration_number":"CROW2137",
+        }
+        response = self.client.post(self.url+'ambulances/',data,format='json')
+        self.assertEqual(response.status_code,400)
+
+
+    #Test busy option in viewset
+    def test_ambulance_view_set_busy(self):
+        data = {
+            "street": "Leszka",
+            "number": 2,
+            "city": "Lublin",
+            "vehicle_name":"BMW",
+            "registration_number":"CROW2137",
+            "status":0
+        }
+        response = self.client.post(self.url+'ambulances/',data,format='json')
+        self.assertEqual(response.status_code,201)
+        created_ambulance_response = self.client.get(self.url+'ambulances/?option=busy', format='json')
+        self.assertEqual(created_ambulance_response.status_code,200)
+
     #Test busy option in viewset
     def test_ambulance_view_set_busy(self):
         data = {
@@ -75,6 +103,7 @@ class Ambulance(APITestCase):
 
     #Tests to check every option
     #===========================================================================================
+
     def test_AmbulancestreetBadStreet(self):
         data = {
             "street": "Leszka",
@@ -212,6 +241,8 @@ class HospitalUser(APITestCase):
         data =json.loads(response.content)
         self.assertIsNotNone(data['access'])
         self.assertIsNotNone(data['refresh'])
+
+
 
 
 
