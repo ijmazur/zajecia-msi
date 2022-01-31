@@ -37,7 +37,7 @@ const AddSquadForm = ({ onSquadAdded, isEditing, onCancel }) => {
     const addDriver = (driver, event) => {
         event.stopPropagation();
         if (drivers.some((d) => d.id === driver.id)) {
-            setDrivers(drivers.filter((d) => d.id != driver.id));
+            setDrivers(drivers.filter((d) => d.id !== driver.id));
         } else {
             const asd = drivers.concat(driver);
             setDrivers(asd);
@@ -60,7 +60,7 @@ const AddSquadForm = ({ onSquadAdded, isEditing, onCancel }) => {
                             {allDrivers.map((driver) => (
                                 <li key={driver.id}>
                                     <div className='dropdown-item' style={{ backgroundColor: drivers.some((d) => d.id === driver.id) ? 'grey' : null }} onClick={(event) => addDriver(driver, event)}>
-                                        {driver.first_name}
+                                        {`${driver.first_name} ${driver.last_name}`}
                                     </div>
                                 </li>
                             ))}

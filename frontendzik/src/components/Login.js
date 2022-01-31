@@ -22,7 +22,7 @@ export const Login = () => {
                 }
             },
             (error) => {
-                console.log('error');
+                alert('You entered wrong username or password!');
             }
         );
     };
