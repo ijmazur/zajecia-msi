@@ -42,14 +42,6 @@ class SquadService {
             response => response.data
         );
     }
-
-    getMySquads(){
-        const config = JSON.parse(JSON.stringify(defaultConfig));
-        config.headers = {...config.headers, ...authHeader() };
-        return axios.get(API_SQUAD_URL + '/my-squads', config).then(
-            response => response.data
-        );
-    }
 }
 
 export default new SquadService();
