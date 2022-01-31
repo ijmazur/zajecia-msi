@@ -63,9 +63,25 @@ class AmbulanceSerializer(serializers.ModelSerializer):
 
 
 class AmbulanceCallSerializer(serializers.ModelSerializer):
-    assigned_squad = SquadSerializer(many=False, read_only=True)
-    assigned_ambulance = AmbulanceSerializer(many=False, read_only=True)
+    # assigned_squad = SquadSerializer(many=False, read_only=True)
+    # assigned_ambulance = AmbulanceSerializer(many=False, read_only=True)
+    def create(self, validated_data):
+        if validated_data['assigned_ambulance'] is not None:
+            ambulance = Ambulance.objects.get(pk=validated_data['assigned_ambulance'].id)
+            ambulance.status = 1
+            Ambulance.save(ambulance)
+        return super().create(validated_data)
 
+    def update(self, instance, validated_data):
+        if validated_data['assigned_ambulance'] is not None:
+            ambulance = Ambulance.objects.get(pk=validated_data['assigned_ambulance'].id)
+            ambulance.status = 1
+            Ambulance.save(ambulance)
+        if instance.assigned_ambulance is not None:
+            ambulance = Ambulance.objects.get(pk=instance.assigned_ambulance.id)
+            ambulance.status = 0
+            Ambulance.save(ambulance)    
+        return super().update(instance, validated_data)
     class Meta:
         model = AmbulanceCall
         fields = '__all__'

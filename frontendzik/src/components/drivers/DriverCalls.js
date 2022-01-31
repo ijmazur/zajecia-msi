@@ -1,14 +1,14 @@
-import './Ambulances.css';
+import './../dispositors/Ambulance.css'
 import { useState, useEffect } from 'react';
-import AddAmbulanceCallForm from './AddAmbulanceCallForm.js';
-import AmbulanceCall from './AmbulanceCall.js';
 import ambulanceCallService from '../../services/ambulanceCall.service';
+import DriverCall from './DriverCall';
 import squadService from '../../services/squad.service';
-import ambulanceService from '../../services/ambulance.service'; 
+import ambulanceService from '../../services/ambulance.service';
 
-export const Calls = () => {
+export const DriverCalls = () => {
 
     const options = [
+        { id: 'my-calls', name: 'My calls' },
         { id: 'all', name: 'All calls' },
         { id: 'busy', name: 'Call currently being handled' },
     ];
@@ -17,13 +17,8 @@ export const Calls = () => {
     };
     const [selectedStatus, setSelectedStatus] = useState(options[0]);
 
-    const [showAddAmbulanceCallForm, setShowAddAmbulanceCallForm] = useState(false);
-    const toggleShowAddAmbulanceCallForm = () => {
-        setShowAddAmbulanceCallForm(!showAddAmbulanceCallForm);
-    };
-
-    const [ambulanceCallList, setAmbulanceCallList] = useState([]);
-    const loadAmbulanceCall = (option) => {
+    const [driverCallList, setDriverCallList] = useState([]);
+    const loadDriverCall = (option) => {
         squadService.getSquadList()
         .then((squads) => {
             ambulanceService.getAmbulances('all')
@@ -35,36 +30,16 @@ export const Calls = () => {
                             ambulanceCall.assigned_squad = squads.find((s) => s.id === ambulanceCall.assigned_squad);
                             ambulanceCall.assigned_ambulance = ambulances.find((a) => a.id === ambulanceCall.assigned_ambulance);
                         })
-                        setAmbulanceCallList(data);
+                        setDriverCallList(data);
                     }
                 );
             })
         })
     };
     useEffect(() => {
-        loadAmbulanceCall(selectedStatus.id);
+        loadDriverCall(selectedStatus.id);
     }, [selectedStatus]);
 
-    const onAmbulanceCallAdded = (ambulanceCall) => {
-        ambulanceCallService.addNewAmbulanceCall(ambulanceCall).then(
-            () => {
-                loadAmbulanceCall(selectedStatus.id);
-                toggleShowAddAmbulanceCallForm();
-            }
-        );
-    };
-
-    const onAmbulanceCallDeleted = (ambulanceCall) => {
-        ambulanceCallService.deleteAmbulanceCall(ambulanceCall.id).then(
-            () => loadAmbulanceCall(selectedStatus.id)
-        );
-    };
-
-    const onAmbulanceCallEdited = (ambulanceCall) => {
-        ambulanceCallService.updateAmbulanceCall(ambulanceCall).then(
-            () => loadAmbulanceCall(selectedStatus.id)
-        );
-    };
 
     return (
         <div>
@@ -83,18 +58,11 @@ export const Calls = () => {
                         ))}
                     </ul>
                 </div>
-                <button type='button' className={showAddAmbulanceCallForm ? 'btn btn-primary' : 'btn btn-secondary'} onClick={toggleShowAddAmbulanceCallForm}>Add new call</button>
             </div>
-            {showAddAmbulanceCallForm ?
-                <div className="padding-8px">
-                    <AddAmbulanceCallForm onAmbulanceCallAdded={onAmbulanceCallAdded} onCancel={toggleShowAddAmbulanceCallForm}/>
-                </div>
-                : null
-            }
-            {ambulanceCallList.length !== 0 ?
+            {driverCallList.length !== 0 ?
                 <div className="list">
-                    {ambulanceCallList.map((ambulanceCall) => (
-                        <AmbulanceCall key={ambulanceCall.id} ambulanceCall={ambulanceCall} onDelete={() => onAmbulanceCallDeleted(ambulanceCall)} onEdit={(editedAmbulanceCall) => onAmbulanceCallEdited(editedAmbulanceCall)} />
+                    {driverCallList.map((driverCall) => (
+                        <DriverCall key={driverCall.id} driverCall={driverCall} />
                     ))}
                 </div>
                 : 'No ambulances to display'
@@ -103,4 +71,4 @@ export const Calls = () => {
     );
 };
 
-export default Calls;
+export default DriverCalls;

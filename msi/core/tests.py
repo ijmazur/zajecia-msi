@@ -1,12 +1,12 @@
+from django.test.testcases import TestCase
+from django.urls import reverse, path, include
 from rest_framework.test import APITestCase
-from rest_framework.test import APIRequestFactory
+from .models import *
 import json
 
-#Create your tests here
-#Tests for ambualnce
+#Create your tests here.
 
 class Ambulance(APITestCase):
-
 
     def setUp(self):
         self.url='http://127.0.0.1:8000/'
@@ -183,6 +183,7 @@ class Ambulance(APITestCase):
 
 #Tests for hospital
 
+
 class HospitalUser(APITestCase):
     def setUp(self):
         self.url='http://127.0.0.1:8000/'
@@ -275,7 +276,3 @@ class HospitalUser(APITestCase):
         data = json.loads(response2.content)
         self.assertIsNotNone(data['access'])
         self.assertIsNotNone(data['refresh'])
-
-
-
-
