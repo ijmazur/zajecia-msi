@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import AddAmbulanceCallForm from './AddAmbulanceCallForm.js';
 import AmbulanceCall from './AmbulanceCall.js';
 import ambulanceCallService from '../../services/ambulanceCall.service';
+import squadService from '../../services/squad.service';
+import ambulanceService from '../../services/ambulance.service'; 
 
 export const Calls = () => {
 
@@ -22,12 +24,22 @@ export const Calls = () => {
 
     const [ambulanceCallList, setAmbulanceCallList] = useState([]);
     const loadAmbulanceCall = (option) => {
-        ambulanceCallService.getAmbulanceCall(option).then(
-            (data) => {
-                data.sort((ac1, ac2) => ac2.priority - ac1.priority);
-                setAmbulanceCallList(data);
-            }
-        );
+        squadService.getSquadList()
+        .then((squads) => {
+            ambulanceService.getAmbulances('all')
+            .then((ambulances) => {
+                ambulanceCallService.getAmbulanceCall(option)
+                .then((data) => {
+                        data.sort((ac1, ac2) => ac2.priority - ac1.priority);
+                        data.forEach((ambulanceCall) => {
+                            ambulanceCall.assigned_squad = squads.find((s) => s.id === ambulanceCall.assigned_squad);
+                            ambulanceCall.assigned_ambulance = ambulances.find((a) => a.id === ambulanceCall.assigned_ambulance);
+                        })
+                        setAmbulanceCallList(data);
+                    }
+                );
+            })
+        })
     };
     useEffect(() => {
         loadAmbulanceCall(selectedStatus.id);

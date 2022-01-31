@@ -2,6 +2,8 @@ import './../dispositors/Ambulance.css'
 import { useState, useEffect } from 'react';
 import ambulanceCallService from '../../services/ambulanceCall.service';
 import DriverCall from './DriverCall';
+import squadService from '../../services/squad.service';
+import ambulanceService from '../../services/ambulance.service';
 
 export const DriverCalls = () => {
 
@@ -17,12 +19,22 @@ export const DriverCalls = () => {
 
     const [driverCallList, setDriverCallList] = useState([]);
     const loadDriverCall = (option) => {
-        ambulanceCallService.getAmbulanceCall(option).then(
-            (data) => {
-                data.sort((ac1, ac2) => ac2.priority - ac1.priority);
-                setDriverCallList(data);
-            }
-        );
+        squadService.getSquadList()
+        .then((squads) => {
+            ambulanceService.getAmbulances('all')
+            .then((ambulances) => {
+                ambulanceCallService.getAmbulanceCall(option)
+                .then((data) => {
+                        data.sort((ac1, ac2) => ac2.priority - ac1.priority);
+                        data.forEach((ambulanceCall) => {
+                            ambulanceCall.assigned_squad = squads.find((s) => s.id === ambulanceCall.assigned_squad);
+                            ambulanceCall.assigned_ambulance = ambulances.find((a) => a.id === ambulanceCall.assigned_ambulance);
+                        })
+                        setDriverCallList(data);
+                    }
+                );
+            })
+        })
     };
     useEffect(() => {
         loadDriverCall(selectedStatus.id);
