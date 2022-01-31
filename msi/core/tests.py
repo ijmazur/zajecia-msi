@@ -37,10 +37,10 @@ class Ambulance(APITestCase):
             "number": 2,
             "city": "Lublin",
             "vehicle_name":"BMW",
-            "registration_number":"CROW2137",
         }
         response = self.client.post(self.url+'ambulances/',data,format='json')
         self.assertEqual(response.status_code,400)
+
 
 
     #Test busy option in viewset
@@ -202,15 +202,29 @@ class HospitalUser(APITestCase):
         created_driver_response = self.client.get(self.url+'drivers/', format='json')
         self.assertEqual(created_driver_response.status_code,200)
 
+
+    #create test shoudnt create with missing options
+    def test_driver(self):
+        data = {
+            "first_name": "Marcin",
+            "last_name": "Borkowski",
+            "username": "SiemaEniu12",
+            "password": "SiemaEniu13",
+            "mail": "siemaeniu@gmail.com"
+        }
+        response = self.client.post(self.url+'drivers/',data,format='json')
+        self.assertEqual(response.status_code,400)
+
+
     #shouldnt create driver with bad option
     def test_driver_bad_option_first_name(self):
         data = {
-            "first_name":10,
+            "first_name":"Marcin",
             "last_name": "Borkowski",
             "date_of_birth":"2000-08-31",
             "username": "SiemaEniu12",
             "password": "SiemaEniu13",
-            "mail": "siemaeniu@gmail.com"
+            "mail": "siemaeniu"
         }
         response = self.client.post(self.url+'drivers/',data,format='json')
         self.assertEqual(response.status_code,400)
@@ -254,6 +268,11 @@ class HospitalUser(APITestCase):
         response = self.client.post(self.url+'drivers/',data,format='json')
         self.assertEqual(response.status_code,201)
         data =json.loads(response.content)
+        response2 = self.client.post(self.url+'api/token/',{
+            "username": "SiemaEniu12",
+            "password": "SiemaEniu13",
+        },format = 'json')
+        data = json.loads(response2.content)
         self.assertIsNotNone(data['access'])
         self.assertIsNotNone(data['refresh'])
 
